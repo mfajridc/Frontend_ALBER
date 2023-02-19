@@ -17,7 +17,7 @@ export default class Login extends Component
     login = () => {
         var UserName = this.state.UserName;
         var Password = this.state.Password;
-        var InsertAPIURL = "http://192.168.0.104/backend/login.php";
+        var InsertAPIURL = "http://192.168.43.95/backend/login.php";
 
         var headers = {
             'Access-Control-Allow-Origin': 'true',

@@ -31,7 +31,7 @@ export default class WheelLoader extends Component {
 
     send = async () => {
         try{
-            await fetch('http://10.14.16.162/backend/wheel_loader.php',{
+            await fetch('http://10.234.213.95/backend/wheel_loader.php',{
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

@@ -30,7 +30,7 @@ export default class Register extends Component
         }
 
         else {
-            var InsertAPIURL ="http://192.168.137.206/backend/register.php";
+            var InsertAPIURL ="http://192.168.43.95/backend/register.php";
 
             var headers = {
                 'Access-Control-Allow-Origin': 'true',
