@@ -67,7 +67,7 @@ export default class Excavator extends Component {
           backgroundColor: '#fff',
         }}>
         <View style={style.header}>
-          <Pressable onPress={() => navigation.goBack()}>
+          <Pressable onPress={() => this.props.navigation.goBack()}>
             <Image
               source={IBack}
               style={{

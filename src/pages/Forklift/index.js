@@ -15,9 +15,6 @@ import {Form} from '../../assets/components/atom/Form';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Picker} from '@react-native-picker/picker';
 
-interface Props {
-  navigation: any;
-}
 export default class Forklift extends Component {
   constructor(props) {
     super(props);
@@ -74,7 +71,7 @@ export default class Forklift extends Component {
           backgroundColor: '#fff',
         }}>
         <View style={style.header}>
-          <Pressable onPress={() => navigation.navigate('NeRequest')}>
+          <Pressable onPress={() => this.props.navigation.goBack()}>
             <Image
               source={IBack}
               style={{
