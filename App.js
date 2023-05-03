@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { SplashScreen, Register,Login, HomeScreen, WelcomePage, NewRequest, WheelLoader, AlberVisualization, Setting, Excavator, Forklift, SubmissionTracking, ProcessOrder} from "./src/pages";
+import { SplashScreen, Register,Login, HomeScreen,HomePCS, WelcomePage, NewRequest, WheelLoader, AlberVisualization, Setting, Excavator, Forklift, SubmissionTracking, ProcessOrder} from "./src/pages";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -33,6 +33,11 @@ const App = () => {
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="HomePCS"
+          component={HomePCS}
           options={{ headerShown: false }}
         />
         <Stack.Screen
