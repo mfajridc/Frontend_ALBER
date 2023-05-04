@@ -49,7 +49,6 @@ export default class Forklift extends Component {
       })
         .then(response => response.json())
         .then(json => {
-          return json.movies;
           alert('Order Request Success!');
         })
         .catch(error => {

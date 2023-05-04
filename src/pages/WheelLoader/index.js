@@ -45,7 +45,6 @@ export default class WheelLoader extends Component {
       })
         .then(response => response.json())
         .then(json => {
-          return json.movies;
           alert('Order Request Success!');
         })
         .catch(error => {
