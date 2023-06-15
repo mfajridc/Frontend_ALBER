@@ -27,15 +27,16 @@ export default class Excavator extends Component {
         pekerjaan: '',
         kapal: '',
         no_palka: '',
-        kegiatan: '',
         area: '',
+        timeStart: '',
+        timeEnds: '',
       },
     };
   }
 
   send = async () => {
     try {
-      await fetch('https://3682-114-125-94-37.ngrok-free.app/api/excavator', {
+      await fetch('https://1472-182-23-102-214.ngrok-free.app/api/excavator', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -56,8 +57,16 @@ export default class Excavator extends Component {
   };
 
   render() {
-    const {no_order, pekerjaan, kapal, no_palka, kegiatan, area} =
-      this.state.formData;
+    const {
+      no_order,
+      pekerjaan,
+      kapal,
+      no_palka,
+      kegiatan,
+      area,
+      timeStart,
+      timeEnds,
+    } = this.state.formData;
 
     return (
       <ScrollView
@@ -166,7 +175,7 @@ export default class Excavator extends Component {
             </Picker>
           </View>
 
-          <Text style={style.label}>Deskripsi Kegiatan</Text>
+          {/* <Text style={style.label}>Deskripsi Kegiatan</Text>
           <View style={style.InputContainerr}>
             <TextInput
               placeholder="Deskripsi Kegiatan"
@@ -180,7 +189,7 @@ export default class Excavator extends Component {
               }
               value={kegiatan}
             />
-          </View>
+          </View> */}
           <Text style={style.label}>Area</Text>
           <View style={style.InputContainer}>
             <Picker
@@ -203,6 +212,37 @@ export default class Excavator extends Component {
               ))}
             </Picker>
           </View>
+          <View style={{flexDirection: 'row'}}>
+            <View style={style.InputContainer}>
+              <TextInput
+                placeholder="Time Start"
+                onChangeText={timeStart =>
+                  this.setState(prevState => ({
+                    formData: {
+                      ...prevState.formData,
+                      timeStart,
+                    },
+                  }))
+                }
+                value={timeStart}
+              />
+            </View>
+
+            <View style={[style.InputContainer, {marginLeft: 10}]}>
+              <TextInput
+                placeholder="Time Ends"
+                onChangeText={timeEnds =>
+                  this.setState(prevState => ({
+                    formData: {
+                      ...prevState.formData,
+                      timeEnds,
+                    },
+                  }))
+                }
+                value={timeEnds}
+              />
+            </View>
+          </View>
           <TouchableOpacity style={style.btn} onPress={this.send}>
             <Text style={style.text}>Send Request</Text>
           </TouchableOpacity>
@@ -221,7 +261,7 @@ const style = StyleSheet.create({
   },
   wrapper: {padding: 15},
   label: {
-    marginVertical: 10,
+    marginVertical: 8,
     fontSize: 16,
     color: '#858585',
   },
@@ -233,6 +273,7 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#858585',
     paddingHorizontal: 18,
+    marginTop: 13,
   },
   InputContainerr: {
     borderRadius: 8,
