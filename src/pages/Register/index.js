@@ -44,7 +44,7 @@ export default class Register extends Component {
       alert('Required Field Is Missing!');
     } else {
       axios
-        .post('https://3682-114-125-94-37.ngrok-free.app/api/register', {
+        .post('https://8b4f-182-1-102-72.ngrok-free.app/api/register', {
           name,
           role,
           password,
@@ -57,99 +57,6 @@ export default class Register extends Component {
           console.log(error.response.data);
         });
     }
-
-    // var name = this.state.formData.name;
-    // var role = this.state.formData.role;
-    // var password = this.state.formData.password;
-    // // console.log('nama', name);
-    // // console.log('role', role);
-    // // console.log('password', password);
-
-    // // const navigate = NavigationContainer();
-
-    // if (name.length == null || password.length == null) {
-    //   alert('Required Field Is Missing!');
-    //   // } else if (password.length < 8) {
-    //   //   alert('Minimum 08 characters required!!!');
-    // } else {
-    //   // var Data = {
-    //   //   name: name,
-    //   //   role: role,
-    //   //   password: password,
-    //   // };
-    //   // axios.post("https://3466-182-1-120-205.ap.ngrok.io/api/register",
-    //   // headers:{ 'Content-Type' : 'application/json' },
-    //   // { name,role,password})
-    //   // .then((response) => { console.log(response) })
-    //   // .catch(err => console.log(err));
-
-    //     axios
-    //       .post(
-    //         // method: 'post',
-    //         'https://a119-182-1-91-71.ap.ngrok.io/api/register',
-    //         {name: name, role: role, password: password},
-    //         // data: Data,
-    //       )
-    //       .then(response => {
-    //         // alert(response[0].Message);
-    //         // this.props.navigation.navigate('WelcomePage');
-    //         // data=>this.setState(response);
-    //         console.log(response);
-    //         // navigate.navigate('WelcomePage');
-    //         // <NavigationContainer ref={WelcomePage}></NavigationContainer>
-    //         // alert("asasa");
-    //         // this.navigate();
-    //         // return (
-    //         // <NavigationContainer>
-    //         //   <Stack.Navigator>
-    //         //     <Stack.Screen name="Home" component={WelcomePage} />
-    //         //   </Stack.Navigator>
-    //         // </NavigationContainer>;
-    //         //   );
-    //       })
-    //       .catch(error => {
-    //         console.log(error.response.data);
-    //       });
-
-    //     // var InsertAPIURL ="https://e935-2001-448a-5021-5e67-d82-221f-47ed-9db6.ap.ngrok.io/api/register";
-
-    //     // var headers = {
-    //     //     'Access-Control-Allow-Origin': 'true',
-    //     //     'Content-Type': 'application/json',
-    //     // };
-
-    //     // var Data = {
-    //     //     name: name,
-    //     //     role: role,
-    //     //     password: password
-    //     // };
-
-    //     // fetch(InsertAPIURL,
-    //     //     {
-    //     //         method:'POST',
-    //     //         headers:headers,
-    //     //         body: JSON.stringify(Data)
-    //     //     })
-    //     //     .then((response) => response.json())
-    //     //     .then((response)=>
-    //     //     {
-    //     //         alert(response[0].Message);
-    //     //         this.props.navigation.navigate("WelcomePage");
-    //     //     })
-    //     //     .catch((error)=>
-    //     //     {
-    //     //         alert("Error"+error);
-    //     //     })
-
-    //     // axios.post('http://10.14.16.38/backend/register.php', JSON.stringify(Data), headers)
-    //     //     .then((response) => {
-    //     //         console.log(response);
-    //     //         console.log(response.data[0].Message)
-    //     //         if (response.data[0].Message == "Registered successfully!") {
-    //     //             this.props.navigation.navigate("WelcomePage");
-    //     //         }
-    //     //     });
-    //   }
   };
 
   render() {

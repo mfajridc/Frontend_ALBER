@@ -73,7 +73,7 @@ const SubmissionTracking = ({navigation, route}) => {
 
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Excavator')}>
+          onPress={() => navigation.navigate('HistoryOrder')}>
           <View style={style.box}>
             <View style={style.inner}>
               <Image
