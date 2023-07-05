@@ -14,6 +14,8 @@ import colors from '../../assets/components/atom/colors';
 import {Form} from '../../assets/components/atom/Form';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Picker} from '@react-native-picker/picker';
+import Moment from 'react-moment';
+import moment from 'moment';
 
 export default class WheelLoader extends Component {
   constructor(props) {
@@ -27,26 +29,20 @@ export default class WheelLoader extends Component {
         pekerjaan: '',
         kapal: '',
         no_palka: '',
-        area: '',
-        timeStart: '',
-        timeEnds: '',
       },
     };
   }
 
   send = async () => {
     try {
-      await fetch(
-        'https://1472-182-23-102-214.ngrok-free.app/api/wheelLoader',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(this.state.formData),
+      await fetch('https://eaf0-182-1-114-154.ngrok-free.app/api/wheelLoader', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify(this.state.formData),
+      })
         .then(response => response.json())
         .then(json => {
           alert('Order Request Success!');
@@ -60,16 +56,7 @@ export default class WheelLoader extends Component {
   };
 
   render() {
-    const {
-      no_order,
-      pekerjaan,
-      kapal,
-      no_palka,
-      kegiatan,
-      area,
-      timeStart,
-      timeEnds,
-    } = this.state.formData;
+    const {no_order, pekerjaan, kapal, no_palka} = this.state.formData;
 
     return (
       <ScrollView
@@ -193,59 +180,7 @@ export default class WheelLoader extends Component {
               value={kegiatan}
             />
           </View> */}
-          <Text style={style.label}>Area</Text>
-          <View style={style.InputContainer}>
-            <Picker
-              style={style.pickerteks}
-              selectedValue={area}
-              onValueChange={area =>
-                this.setState(prevState => ({
-                  formData: {
-                    ...prevState.formData,
-                    area,
-                  },
-                }))
-              }>
-              {this.state.areaCleaning.map((item, index) => (
-                <Picker.Item
-                  key={index}
-                  label={item}
-                  value={item.toLowerCase()}
-                />
-              ))}
-            </Picker>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <View style={style.InputContainer}>
-              <TextInput
-                placeholder="Time Start"
-                onChangeText={timeStart =>
-                  this.setState(prevState => ({
-                    formData: {
-                      ...prevState.formData,
-                      timeStart,
-                    },
-                  }))
-                }
-                value={timeStart}
-              />
-            </View>
 
-            <View style={[style.InputContainer, {marginLeft: 10}]}>
-              <TextInput
-                placeholder="Time Ends"
-                onChangeText={timeEnds =>
-                  this.setState(prevState => ({
-                    formData: {
-                      ...prevState.formData,
-                      timeEnds,
-                    },
-                  }))
-                }
-                value={timeEnds}
-              />
-            </View>
-          </View>
           <TouchableOpacity style={style.btn} onPress={this.send}>
             <Text style={style.text}>Send Request</Text>
           </TouchableOpacity>

@@ -19,6 +19,7 @@ export default class Excavator extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      cek: 'ini',
       dataPekerjaan: ['Loading/Unloading', 'Housekeeping'],
       nomorPalka: ['1', '2', '3', '4'],
       areaCleaning: ['Area Cleaning UBB', 'Area Cleaning Pabrik 1'],
@@ -28,15 +29,15 @@ export default class Excavator extends Component {
         kapal: '',
         no_palka: '',
         area: '',
-        timeStart: '',
-        timeEnds: '',
+        time_start: '',
+        time_end: '',
       },
     };
   }
 
   send = async () => {
     try {
-      await fetch('https://1472-182-23-102-214.ngrok-free.app/api/excavator', {
+      await fetch('https://cbcc-182-1-69-199.ngrok-free.app/api/excavator', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -64,9 +65,11 @@ export default class Excavator extends Component {
       no_palka,
       kegiatan,
       area,
-      timeStart,
-      timeEnds,
+      time_start,
+      time_end,
     } = this.state.formData;
+
+    const {dataPekerjaan, cek} = this.state;
 
     return (
       <ScrollView
@@ -120,13 +123,17 @@ export default class Excavator extends Component {
             <Picker
               style={style.pickerteks}
               selectedValue={pekerjaan}
-              onValueChange={pekerjaan =>
+              onValueChange={pekerjaan =>{
+                console.log(pekerjaan);
+                console.log(this.state.formData.pekerjaan);
                 this.setState(prevState => ({
                   formData: {
                     ...prevState.formData,
                     pekerjaan,
                   },
-                }))
+                }));
+                console.log(this.state.formData.pekerjaan);
+              }
               }>
               {this.state.dataPekerjaan.map((item, index) => (
                 <Picker.Item
@@ -137,6 +144,7 @@ export default class Excavator extends Component {
               ))}
             </Picker>
           </View>
+
           <Text style={style.label}>Nama Kapal</Text>
           <View style={style.InputContainer}>
             <TextInput
@@ -152,6 +160,7 @@ export default class Excavator extends Component {
               value={kapal}
             />
           </View>
+
           <Text style={style.label}>No Palka</Text>
           <View style={style.InputContainer}>
             <Picker
@@ -175,7 +184,9 @@ export default class Excavator extends Component {
             </Picker>
           </View>
 
-          {/* <Text style={style.label}>Deskripsi Kegiatan</Text>
+          {pekerjaan === "Houskeeping" && (
+          <>
+          <Text style={style.label}>Deskripsi Kegiatan</Text>
           <View style={style.InputContainerr}>
             <TextInput
               placeholder="Deskripsi Kegiatan"
@@ -189,7 +200,8 @@ export default class Excavator extends Component {
               }
               value={kegiatan}
             />
-          </View> */}
+          </View>
+
           <Text style={style.label}>Area</Text>
           <View style={style.InputContainer}>
             <Picker
@@ -212,37 +224,41 @@ export default class Excavator extends Component {
               ))}
             </Picker>
           </View>
+
           <View style={{flexDirection: 'row'}}>
             <View style={style.InputContainer}>
               <TextInput
                 placeholder="Time Start"
-                onChangeText={timeStart =>
+                onChangeText={time_start =>
                   this.setState(prevState => ({
                     formData: {
                       ...prevState.formData,
-                      timeStart,
+                      time_start,
                     },
                   }))
                 }
-                value={timeStart}
+                value={time_start}
               />
             </View>
 
             <View style={[style.InputContainer, {marginLeft: 10}]}>
               <TextInput
                 placeholder="Time Ends"
-                onChangeText={timeEnds =>
+                onChangeText={time_end =>
                   this.setState(prevState => ({
                     formData: {
                       ...prevState.formData,
-                      timeEnds,
+                      time_end,
                     },
                   }))
                 }
-                value={timeEnds}
+                value={time_end}
               />
             </View>
           </View>
+          </>
+          )}
+
           <TouchableOpacity style={style.btn} onPress={this.send}>
             <Text style={style.text}>Send Request</Text>
           </TouchableOpacity>

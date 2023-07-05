@@ -32,22 +32,25 @@ export default class Forklift extends Component {
         kapal: '',
         no_palka: '',
         area: '',
-        timeStart: '',
-        timeEnds: '',
+        time_start: '',
+        time_end: '',
       },
     };
   }
 
   send = async () => {
     try {
-      await fetch('https://1472-182-23-102-214.ngrok-free.app/api/forklift', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+      await fetch(
+        'https://2978-2001-448a-50e0-4e02-ad51-1f9e-87af-8090.ngrok-free.app/forklift',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.state.formData),
         },
-        body: JSON.stringify(this.state.formData),
-      })
+      )
         .then(response => response.json())
         .then(json => {
           alert('Order Request Success!');
@@ -68,8 +71,8 @@ export default class Forklift extends Component {
       no_palka,
       kegiatan,
       area,
-      timeStart,
-      timeEnds,
+      time_start,
+      time_end,
     } = this.state.formData;
 
     return (
@@ -220,30 +223,30 @@ export default class Forklift extends Component {
             <View style={style.InputContainer}>
               <TextInput
                 placeholder="Time Start"
-                onChangeText={timeStart =>
+                onChangeText={time_start =>
                   this.setState(prevState => ({
                     formData: {
                       ...prevState.formData,
-                      timeStart,
+                      time_start,
                     },
                   }))
                 }
-                value={timeStart}
+                value={time_start}
               />
             </View>
 
             <View style={[style.InputContainer, {marginLeft: 10}]}>
               <TextInput
                 placeholder="Time Ends"
-                onChangeText={timeEnds =>
+                onChangeText={time_end =>
                   this.setState(prevState => ({
                     formData: {
                       ...prevState.formData,
-                      timeEnds,
+                      time_end,
                     },
                   }))
                 }
-                value={timeEnds}
+                value={time_end}
               />
             </View>
           </View>
