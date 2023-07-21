@@ -37,7 +37,7 @@ export default class Excavator extends Component {
 
   send = async () => {
     try {
-      await fetch('https://cbcc-182-1-69-199.ngrok-free.app/api/excavator', {
+      await fetch('https://ec63-182-253-130-235.ngrok-free.app/api/excavator', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -48,6 +48,18 @@ export default class Excavator extends Component {
         .then(response => response.json())
         .then(json => {
           alert('Order Request Success!');
+          console.log(json);
+          this.setState({
+            formData: {
+              no_order: '',
+              pekerjaan: '',
+              kapal: '',
+              no_palka: '',
+              area: '',
+              time_start: '',
+              time_end: '',
+            },
+          });
         })
         .catch(error => {
           console.error(error);
@@ -69,7 +81,7 @@ export default class Excavator extends Component {
       time_end,
     } = this.state.formData;
 
-    const {dataPekerjaan, cek} = this.state;
+    const {dataPekerjaan} = this.state;
 
     return (
       <ScrollView
@@ -123,19 +135,15 @@ export default class Excavator extends Component {
             <Picker
               style={style.pickerteks}
               selectedValue={pekerjaan}
-              onValueChange={pekerjaan =>{
-                console.log(pekerjaan);
-                console.log(this.state.formData.pekerjaan);
+              onValueChange={pekerjaan =>
                 this.setState(prevState => ({
                   formData: {
                     ...prevState.formData,
                     pekerjaan,
                   },
-                }));
-                console.log(this.state.formData.pekerjaan);
-              }
+                }))
               }>
-              {this.state.dataPekerjaan.map((item, index) => (
+              {dataPekerjaan.map((item, index) => (
                 <Picker.Item
                   key={index}
                   label={item}
@@ -144,119 +152,121 @@ export default class Excavator extends Component {
               ))}
             </Picker>
           </View>
-
-          <Text style={style.label}>Nama Kapal</Text>
-          <View style={style.InputContainer}>
-            <TextInput
-              placeholder="Nama Kapal"
-              onChangeText={kapal =>
-                this.setState(prevState => ({
-                  formData: {
-                    ...prevState.formData,
-                    kapal,
-                  },
-                }))
-              }
-              value={kapal}
-            />
-          </View>
-
-          <Text style={style.label}>No Palka</Text>
-          <View style={style.InputContainer}>
-            <Picker
-              style={style.pickerteks}
-              selectedValue={no_palka}
-              onValueChange={no_palka =>
-                this.setState(prevState => ({
-                  formData: {
-                    ...prevState.formData,
-                    no_palka,
-                  },
-                }))
-              }>
-              {this.state.nomorPalka.map((item, index) => (
-                <Picker.Item
-                  key={index}
-                  label={item}
-                  value={item.toLowerCase()}
+          {pekerjaan.toLowerCase() === 'loading/unloading' && (
+            <>
+              <Text style={style.label}>Nama Kapal</Text>
+              <View style={style.InputContainer}>
+                <TextInput
+                  placeholder="Nama Kapal"
+                  onChangeText={kapal =>
+                    this.setState(prevState => ({
+                      formData: {
+                        ...prevState.formData,
+                        kapal,
+                      },
+                    }))
+                  }
+                  value={kapal}
                 />
-              ))}
-            </Picker>
-          </View>
+              </View>
+              <Text style={style.label}>No Palka</Text>
+              <View style={style.InputContainer}>
+                <Picker
+                  style={style.pickerteks}
+                  selectedValue={no_palka}
+                  onValueChange={no_palka =>
+                    this.setState(prevState => ({
+                      formData: {
+                        ...prevState.formData,
+                        no_palka,
+                      },
+                    }))
+                  }>
+                  {this.state.nomorPalka.map((item, index) => (
+                    <Picker.Item
+                      key={index}
+                      label={item}
+                      value={item.toLowerCase()}
+                    />
+                  ))}
+                </Picker>
+              </View>
+            </>
+          )}
 
-          {pekerjaan === "Houskeeping" && (
-          <>
-          <Text style={style.label}>Deskripsi Kegiatan</Text>
-          <View style={style.InputContainerr}>
-            <TextInput
-              placeholder="Deskripsi Kegiatan"
-              onChangeText={kegiatan =>
-                this.setState(prevState => ({
-                  formData: {
-                    ...prevState.formData,
-                    kegiatan,
-                  },
-                }))
-              }
-              value={kegiatan}
-            />
-          </View>
-
-          <Text style={style.label}>Area</Text>
-          <View style={style.InputContainer}>
-            <Picker
-              style={style.pickerteks}
-              selectedValue={area}
-              onValueChange={area =>
-                this.setState(prevState => ({
-                  formData: {
-                    ...prevState.formData,
-                    area,
-                  },
-                }))
-              }>
-              {this.state.areaCleaning.map((item, index) => (
-                <Picker.Item
-                  key={index}
-                  label={item}
-                  value={item.toLowerCase()}
+          {pekerjaan.toLowerCase() === 'housekeeping' && (
+            <>
+              <Text style={style.label}>Deskripsi Kegiatan</Text>
+              <View style={style.InputContainer}>
+                <TextInput
+                  placeholder="Deskripsi Kegiatan"
+                  onChangeText={kegiatan =>
+                    this.setState(prevState => ({
+                      formData: {
+                        ...prevState.formData,
+                        kegiatan,
+                      },
+                    }))
+                  }
+                  value={kegiatan}
                 />
-              ))}
-            </Picker>
-          </View>
+              </View>
 
-          <View style={{flexDirection: 'row'}}>
-            <View style={style.InputContainer}>
-              <TextInput
-                placeholder="Time Start"
-                onChangeText={time_start =>
-                  this.setState(prevState => ({
-                    formData: {
-                      ...prevState.formData,
-                      time_start,
-                    },
-                  }))
-                }
-                value={time_start}
-              />
-            </View>
+              <Text style={style.label}>Area</Text>
+              <View style={style.InputContainer}>
+                <Picker
+                  style={style.pickerteks}
+                  selectedValue={area}
+                  onValueChange={area =>
+                    this.setState(prevState => ({
+                      formData: {
+                        ...prevState.formData,
+                        area,
+                      },
+                    }))
+                  }>
+                  {this.state.areaCleaning.map((item, index) => (
+                    <Picker.Item
+                      key={index}
+                      label={item}
+                      value={item.toLowerCase()}
+                    />
+                  ))}
+                </Picker>
+              </View>
 
-            <View style={[style.InputContainer, {marginLeft: 10}]}>
-              <TextInput
-                placeholder="Time Ends"
-                onChangeText={time_end =>
-                  this.setState(prevState => ({
-                    formData: {
-                      ...prevState.formData,
-                      time_end,
-                    },
-                  }))
-                }
-                value={time_end}
-              />
-            </View>
-          </View>
-          </>
+              <View style={{flexDirection: 'row'}}>
+                <View style={style.InputContainer}>
+                  <TextInput
+                    placeholder="Time Start"
+                    onChangeText={time_start =>
+                      this.setState(prevState => ({
+                        formData: {
+                          ...prevState.formData,
+                          time_start,
+                        },
+                      }))
+                    }
+                    value={time_start}
+                  />
+                </View>
+
+                <View style={[style.InputContainer, {marginLeft: 10}]}>
+                  <TextInput
+                    placeholder="Time Ends"
+                    onChangeText={time_end =>
+                      this.setState(prevState => ({
+                        formData: {
+                          ...prevState.formData,
+                          time_end,
+                        },
+                      }))
+                    }
+                    value={time_end}
+                  />
+                </View>
+              </View>
+            </>
           )}
 
           <TouchableOpacity style={style.btn} onPress={this.send}>

@@ -40,17 +40,14 @@ export default class Forklift extends Component {
 
   send = async () => {
     try {
-      await fetch(
-        'https://2978-2001-448a-50e0-4e02-ad51-1f9e-87af-8090.ngrok-free.app/forklift',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(this.state.formData),
+      await fetch('https://c340-182-1-96-83.ngrok-free.app/forklift', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify(this.state.formData),
+      })
         .then(response => response.json())
         .then(json => {
           alert('Order Request Success!');
@@ -74,6 +71,8 @@ export default class Forklift extends Component {
       time_start,
       time_end,
     } = this.state.formData;
+
+    const {dataPekerjaan} = this.state;
 
     return (
       <ScrollView
@@ -135,7 +134,7 @@ export default class Forklift extends Component {
                   },
                 }))
               }>
-              {this.state.dataPekerjaan.map((item, index) => (
+              {dataPekerjaan.map((item, index) => (
                 <Picker.Item
                   key={index}
                   label={item}
@@ -144,8 +143,10 @@ export default class Forklift extends Component {
               ))}
             </Picker>
           </View>
-          <Text style={style.label}>Nama Kapal</Text>
-          <View style={style.InputContainer}>
+          {pekerjaan.toLowerCase() === 'loading/unloading' && (
+            <>
+              <Text style={style.label}>Nama Kapal</Text>
+              <View style={style.InputContainer}>
             <TextInput
               placeholder="Nama Kapal"
               onChangeText={kapal =>
@@ -159,97 +160,106 @@ export default class Forklift extends Component {
               value={kapal}
             />
           </View>
-          <Text style={style.label}>No Palka</Text>
-          <View style={style.InputContainer}>
-            <Picker
-              style={style.pickerteks}
-              selectedValue={no_palka}
-              onValueChange={no_palka =>
-                this.setState(prevState => ({
-                  formData: {
-                    ...prevState.formData,
-                    no_palka,
-                  },
-                }))
-              }>
-              {this.state.nomorPalka.map((item, index) => (
-                <Picker.Item
-                  key={index}
-                  label={item}
-                  value={item.toLowerCase()}
-                />
-              ))}
-            </Picker>
-          </View>
+              <Text style={style.label}>No Palka</Text>
+              <View style={style.InputContainer}>
+                <Picker
+                  style={style.pickerteks}
+                  selectedValue={no_palka}
+                  onValueChange={no_palka =>
+                    this.setState(prevState => ({
+                      formData: {
+                        ...prevState.formData,
+                        no_palka,
+                      },
+                    }))
+                  }>
+                  {this.state.nomorPalka.map((item, index) => (
+                    <Picker.Item
+                      key={index}
+                      label={item}
+                      value={item.toLowerCase()}
+                    />
+                  ))}
+                </Picker>
+              </View>
+            </>
+          )}
 
-          {/* <Text style={style.label}>Deskripsi Kegiatan</Text>
-          <View style={style.InputContainerr}>
-            <TextInput
-              placeholder="Deskripsi Kegiatan"
-              onChangeText={kegiatan =>
-                this.setState(prevState => ({
-                  formData: {
-                    ...prevState.formData,
-                    kegiatan,
-                  },
-                }))
-              }
-              value={kegiatan}
-            />
-          </View> */}
-          <Text style={style.label}>Area</Text>
-          <View style={style.InputContainer}>
-            <Picker
-              style={style.pickerteks}
-              selectedValue={area}
-              onValueChange={area =>
-                this.setState(prevState => ({
-                  formData: {
-                    ...prevState.formData,
-                    area,
-                  },
-                }))
-              }>
-              {this.state.areaCleaning.map((item, index) => (
-                <Picker.Item
-                  key={index}
-                  label={item}
-                  value={item.toLowerCase()}
+          {pekerjaan.toLowerCase() === 'housekeeping' && (
+            <>
+              <Text style={style.label}>Deskripsi Kegiatan</Text>
+              <View style={style.InputContainer}>
+                <TextInput
+                  placeholder="Deskripsi Kegiatan"
+                  onChangeText={kegiatan =>
+                    this.setState(prevState => ({
+                      formData: {
+                        ...prevState.formData,
+                        kegiatan,
+                      },
+                    }))
+                  }
+                  value={kegiatan}
                 />
-              ))}
-            </Picker>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <View style={style.InputContainer}>
-              <TextInput
-                placeholder="Time Start"
-                onChangeText={time_start =>
-                  this.setState(prevState => ({
-                    formData: {
-                      ...prevState.formData,
-                      time_start,
-                    },
-                  }))
-                }
-                value={time_start}
-              />
-            </View>
+              </View>
 
-            <View style={[style.InputContainer, {marginLeft: 10}]}>
-              <TextInput
-                placeholder="Time Ends"
-                onChangeText={time_end =>
-                  this.setState(prevState => ({
-                    formData: {
-                      ...prevState.formData,
-                      time_end,
-                    },
-                  }))
-                }
-                value={time_end}
-              />
-            </View>
-          </View>
+              <Text style={style.label}>Area</Text>
+              <View style={style.InputContainer}>
+                <Picker
+                  style={style.pickerteks}
+                  selectedValue={area}
+                  onValueChange={area =>
+                    this.setState(prevState => ({
+                      formData: {
+                        ...prevState.formData,
+                        area,
+                      },
+                    }))
+                  }>
+                  {this.state.areaCleaning.map((item, index) => (
+                    <Picker.Item
+                      key={index}
+                      label={item}
+                      value={item.toLowerCase()}
+                    />
+                  ))}
+                </Picker>
+              </View>
+
+              <View style={{flexDirection: 'row'}}>
+                <View style={style.InputContainer}>
+                  <TextInput
+                    placeholder="Time Start"
+                    onChangeText={time_start =>
+                      this.setState(prevState => ({
+                        formData: {
+                          ...prevState.formData,
+                          time_start,
+                        },
+                      }))
+                    }
+                    value={time_start}
+                  />
+                </View>
+
+                <View style={[style.InputContainer, {marginLeft: 10}]}>
+                  <TextInput
+                    placeholder="Time Ends"
+                    onChangeText={time_end =>
+                      this.setState(prevState => ({
+                        formData: {
+                          ...prevState.formData,
+                          time_end,
+                        },
+                      }))
+                    }
+                    value={time_end}
+                  />
+                </View>
+              </View>
+            </>
+          )}
+
           <TouchableOpacity style={style.btn} onPress={this.send}>
             <Text style={style.text}>Send Request</Text>
           </TouchableOpacity>
