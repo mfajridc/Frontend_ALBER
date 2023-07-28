@@ -40,7 +40,7 @@ export default class Forklift extends Component {
 
   send = async () => {
     try {
-      await fetch('https://c340-182-1-96-83.ngrok-free.app/forklift', {
+      await fetch('https://c6dd-182-1-103-14.ngrok-free.app/api/forklift', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -51,6 +51,18 @@ export default class Forklift extends Component {
         .then(response => response.json())
         .then(json => {
           alert('Order Request Success!');
+          console.log(json);
+          this.setState({
+            formData: {
+              no_order: '',
+              pekerjaan: '',
+              kapal: '',
+              no_palka: '',
+              area: '',
+              time_start: '',
+              time_end: '',
+            },
+          });
         })
         .catch(error => {
           console.error(error);
@@ -147,19 +159,19 @@ export default class Forklift extends Component {
             <>
               <Text style={style.label}>Nama Kapal</Text>
               <View style={style.InputContainer}>
-            <TextInput
-              placeholder="Nama Kapal"
-              onChangeText={kapal =>
-                this.setState(prevState => ({
-                  formData: {
-                    ...prevState.formData,
-                    kapal,
-                  },
-                }))
-              }
-              value={kapal}
-            />
-          </View>
+                <TextInput
+                  placeholder="Nama Kapal"
+                  onChangeText={kapal =>
+                    this.setState(prevState => ({
+                      formData: {
+                        ...prevState.formData,
+                        kapal,
+                      },
+                    }))
+                  }
+                  value={kapal}
+                />
+              </View>
               <Text style={style.label}>No Palka</Text>
               <View style={style.InputContainer}>
                 <Picker
