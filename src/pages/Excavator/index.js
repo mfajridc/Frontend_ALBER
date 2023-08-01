@@ -37,7 +37,7 @@ export default class Excavator extends Component {
 
   send = async () => {
     try {
-      await fetch('https://ec63-182-253-130-235.ngrok-free.app/api/excavator', {
+      await fetch('https://4e84-182-1-106-42.ngrok-free.app/api/excavator', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

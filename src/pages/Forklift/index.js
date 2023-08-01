@@ -14,6 +14,7 @@ import colors from '../../assets/components/atom/colors';
 import {Form} from '../../assets/components/atom/Form';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Picker} from '@react-native-picker/picker';
+import { Dropdown } from 'react-native-material-dropdown';
 
 export default class Forklift extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ export default class Forklift extends Component {
 
   send = async () => {
     try {
-      await fetch('https://c6dd-182-1-103-14.ngrok-free.app/api/forklift', {
+      await fetch('https://c78e-182-1-98-142.ngrok-free.app/api/forklift', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -198,6 +199,81 @@ export default class Forklift extends Component {
           )}
 
           {pekerjaan.toLowerCase() === 'housekeeping' && (
+            <>
+              <Text style={style.label}>Deskripsi Kegiatan</Text>
+              <View style={style.InputContainer}>
+                <TextInput
+                  placeholder="Deskripsi Kegiatan"
+                  onChangeText={kegiatan =>
+                    this.setState(prevState => ({
+                      formData: {
+                        ...prevState.formData,
+                        kegiatan,
+                      },
+                    }))
+                  }
+                  value={kegiatan}
+                />
+              </View>
+
+              <Text style={style.label}>Area</Text>
+              <View style={style.InputContainer}>
+                <Picker
+                  style={style.pickerteks}
+                  selectedValue={area}
+                  onValueChange={area =>
+                    this.setState(prevState => ({
+                      formData: {
+                        ...prevState.formData,
+                        area,
+                      },
+                    }))
+                  }>
+                  {this.state.areaCleaning.map((item, index) => (
+                    <Picker.Item
+                      key={index}
+                      label={item}
+                      value={item.toLowerCase()}
+                    />
+                  ))}
+                </Picker>
+              </View>
+
+              <View style={{flexDirection: 'row'}}>
+                <View style={style.InputContainer}>
+                  <TextInput
+                    placeholder="Time Start"
+                    onChangeText={time_start =>
+                      this.setState(prevState => ({
+                        formData: {
+                          ...prevState.formData,
+                          time_start,
+                        },
+                      }))
+                    }
+                    value={time_start}
+                  />
+                </View>
+
+                <View style={[style.InputContainer, {marginLeft: 10}]}>
+                  <TextInput
+                    placeholder="Time Ends"
+                    onChangeText={time_end =>
+                      this.setState(prevState => ({
+                        formData: {
+                          ...prevState.formData,
+                          time_end,
+                        },
+                      }))
+                    }
+                    value={time_end}
+                  />
+                </View>
+              </View>
+            </>
+          )}
+
+          {pekerjaan.toLowerCase() === 'kepentingan pabrik' && (
             <>
               <Text style={style.label}>Deskripsi Kegiatan</Text>
               <View style={style.InputContainer}>
