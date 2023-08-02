@@ -44,7 +44,7 @@ export default class Register extends Component {
       alert('Required Field Is Missing!');
     } else {
       axios
-        .post('https://ec63-182-253-130-235.ngrok-free.app/api/register', {
+        .post('https://ec37-182-1-118-154.ngrok-free.app/api/register', {
           name,
           role,
           password,

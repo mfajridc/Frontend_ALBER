@@ -14,7 +14,7 @@ import colors from '../../assets/components/atom/colors';
 import {Form} from '../../assets/components/atom/Form';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Picker} from '@react-native-picker/picker';
-import { Dropdown } from 'react-native-material-dropdown';
+import {Dropdown} from 'react-native-material-dropdown';
 
 export default class Forklift extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ export default class Forklift extends Component {
 
   send = async () => {
     try {
-      await fetch('https://c78e-182-1-98-142.ngrok-free.app/api/forklift', {
+      await fetch('https://ec37-182-1-118-154.ngrok-free.app/api/forklift', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
