@@ -1,80 +1,117 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { IBack, ILogoo } from "../../assets/icons";
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-import alatberat from '../../assets/components/atom/Alber/alatberat';
+import { FlatList } from 'react-native-gesture-handler';
 import colors from '../../assets/components/atom/colors';
 import { Input } from "../../assets/components/atom";
-import { IExcav,IForklift, IWheelouder } from "../../assets/images";
 
 const AlberVisualization = ({ navigation }) => {
 
-    return (
-        <View style={{
-            flex: 1,
-            backgroundColor: '#fff',
-        }}>
-            <View style={style.header}>
-                <Pressable onPress={() => navigation.goBack()}>
-                    <Image source={IBack} style={{
-                        width: 32,
-                        height: 32
-                    }} />
-                </Pressable>
-                <Image source={ILogoo} style={{ width: 208, height: 30 }} />
-            </View>
+  const data = [
+    { name: "Excavator", code: "Exc", count: 2, color: "green" },
+    { name: "Forklift", code: "Fo", count: 1, color: "blue" },
+    { name: "Wheel Loader", code: "Wd", count: 3, color: "red" },
+  ];
 
-            <View style={{ alignItems: 'center' }}>
-                <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 20, marginBottom: 20, color: "#3C3C3C" }}>Alber Visualization</Text>
-            </View>
+  const groupedData = data.reduce((acc, item) => {
+    if (!acc[item.name]) {
+      acc[item.name] = [];
+    }
+    acc[item.name].push(item);
+    return acc;
+  }, {});
 
-            <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop:20}}>
+  const renderAlatBeratRow = ({ item }) => (
+    <View style={style.row}>
+      <View style={[style.box, { backgroundColor: item.color }]}>
+        <Text style={style.text}>{item.count}</Text>
+      </View>
+      <Text style={style.alatName}>{item.code}</Text>
+    </View>
+  );
 
-            <View style={style.box}>
-                <Image source={IExcav} style={{  width: 120, height: 92, marginTop: 10, marginLeft:10}} />
-                <Text style={style.text}>3 Excavator</Text>
-            </View>
-            <View style={style.box}>
-                <Image source={IForklift} style={{  width: 120, height: 92, marginTop: 10, marginLeft:10}} />
-                <Text style={style.text}>3 Forklift</Text>
-            </View>
+  const renderColumn = ({ item }) => (
+    <View style={style.column}>
+      <Text style={style.columnHeader}>{item.name}</Text>
+      <FlatList
+        data={item.data}
+        renderItem={renderAlatBeratRow}
+        keyExtractor={(item) => item.code}
+      />
+    </View>
+  );
 
-            </View>
-            <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop:20}}>
+  return (
+    <View style={{
+      flex: 1,
+      backgroundColor: '#fff',
+    }}>
+      <View style={style.header}>
+        <Pressable onPress={() => navigation.goBack()}>
+          <Image source={IBack} style={{
+            width: 32,
+            height: 32
+          }} />
+        </Pressable>
+        <Image source={ILogoo} style={{ width: 208, height: 30 }} />
+      </View>
 
-            <View style={style.box}>
-                <Image source={IWheelouder} style={{  width: 120, height: 92, marginTop: 10, marginLeft:10}} />
-                <Text style={style.text}>3 Wheel Loader</Text>
-            </View>
+      <View style={{ alignItems: 'center' }}>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 20, marginBottom: 20, color: "#3C3C3C" }}>Alber Visualization</Text>
+      </View>
 
-            </View>
-
-
-        </View>
-    );
-
+      <FlatList
+        data={Object.keys(groupedData).map((key) => ({
+          name: key,
+          data: groupedData[key],
+        }))}
+        renderItem={renderColumn}
+        keyExtractor={(item) => item.name}
+        horizontal
+      />
+    </View>
+  );
 };
 
 const style = StyleSheet.create({
-    header: {
-        paddingHorizontal: 20,
-        marginTop: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    box:{
-        borderRadius:10,
-        width:140,
-        height:130,
-        backgroundColor:'#F6F6F6'
-    },
-    text:{
-        textAlign:'center',
-        fontSize:14,
-        fontWeight:'bold'
-    }
-
+  header: {
+    paddingHorizontal: 20,
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  column: {
+    alignItems: 'center',
+    marginHorizontal: 28,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  box: {
+    borderRadius: 1,
+    width: 25,
+    height: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+  },
+  text: {
+    textAlign: 'center',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  alatName: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: "#3C3C3C",
+  },
+  columnHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  }
 });
 
 export default AlberVisualization;
-

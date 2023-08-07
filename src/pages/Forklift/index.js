@@ -41,7 +41,7 @@ export default class Forklift extends Component {
 
   send = async () => {
     try {
-      await fetch('https://4be5-114-125-79-19.ngrok-free.app/api/forklift', {
+      await fetch('https://e429-182-4-133-174.ngrok-free.app/api/forklift', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

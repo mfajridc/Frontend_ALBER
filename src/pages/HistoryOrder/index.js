@@ -11,11 +11,11 @@ import { IBack, ILogoo } from '../../assets/icons';
 const HistoryOrder = ({ navigation }) => {
   // Sample data for time activity and PIC
   const activities = [
-    { timeActivity: '08:00 AM', activity: 'Order Request', pic: 'Pak 4' },
-    { timeActivity: '09:30 AM', activity: 'Manage Alber', pic: 'Pak 3' },
-    { timeActivity: '09:30 AM', activity: 'Tes alber', pic: 'Pak 1' },
-    { timeActivity: '16:30 AM', activity: 'Repair', pic: 'Pak 5' }
-    // Add more activity data as needed
+    { timeActivity: '08:00 AM', activity: 'Request WheelLoader', pic: 'Pak 4' },
+    { timeActivity: '09:30 AM', activity: 'Request Forklift', pic: 'Pak 3' },
+    { timeActivity: '09:30 AM', activity: 'Request Excavator', pic: 'Pak 1' },
+    { timeActivity: '16:30 AM', activity: 'Request WheelLoader', pic: 'Pak 5' }
+    // dummy data
   ];
 
   return (
@@ -51,7 +51,6 @@ const HistoryOrder = ({ navigation }) => {
         </Text>
       </View>
 
-      {/* Table-like layout for time activity and PIC */}
       <View style={styles.tableContainer}>
         <View style={styles.headerRow}>
           <Text style={[styles.headerText, { textAlign: 'center' }]}>Time</Text>
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
   },
   tableContainer: {
     marginTop: 20,
-    backgroundColor: '#FFF', // Set background color to white
+    backgroundColor: '#FFF', 
     borderRadius: 8,
     paddingVertical: 10,
   },
