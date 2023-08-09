@@ -58,7 +58,7 @@ const HomePCS = ({ navigation, route }) => {
                         fontWeight: '700',
                         color: '#3A3A3A',
                         fontFamily: 'Poppins-Black'
-                    }}>Admin PG</Text>
+                    }}>Admin PCS</Text>
                 </View>
 
             </View>
@@ -104,7 +104,7 @@ const HomePCS = ({ navigation, route }) => {
 const style = StyleSheet.create({
     name: { fontSize: 26, fontWeight: '700', color: '#fff', marginTop: 10 },
     box: {
-        marginTop: 8,
+        marginTop: 10,
         width: 155,
         height: 155,
         padding: 5,

@@ -13,6 +13,7 @@ import Excavator from './Excavator';
 import Forklift from './Forklift';
 import SubmissionTracking from './SubmissionTracking';
 import ProcessOrder from './ProcessOrder';
+import ProcessOrderPCS from './ProcessOrderPCS';
 import HistoryOrder from './HistoryOrder';
 
 export {
@@ -31,5 +32,6 @@ export {
   Forklift,
   SubmissionTracking,
   ProcessOrder,
+  ProcessOrderPCS,
   HistoryOrder,
 };

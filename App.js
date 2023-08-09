@@ -15,6 +15,7 @@ import {
   Forklift,
   SubmissionTracking,
   ProcessOrder,
+  ProcessOrderPCS,
   HistoryOrder,
 } from './src/pages';
 import {NavigationContainer} from '@react-navigation/native';
@@ -94,6 +95,11 @@ const App = () => {
         <Stack.Screen
           name="ProcessOrder"
           component={ProcessOrder}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ProcessOrderPCS"
+          component={ProcessOrderPCS}
           options={{headerShown: false}}
         />
         <Stack.Screen

@@ -35,7 +35,7 @@ export default class WheelLoader extends Component {
 
   send = async () => {
     try {
-      await fetch('https://4e84-182-1-106-42.ngrok-free.app/api/wheelLoader', {
+      await fetch('https://ad73-182-1-115-13.ngrok-free.app/api/wheelLoader', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

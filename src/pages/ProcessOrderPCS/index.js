@@ -35,13 +35,13 @@ export default class ProcessOrderPCS extends Component {
     try {
       let response = [];
       const responseExcavator = await axios.get(
-        'https://7a9a-182-1-115-13.ngrok-free.app/api/excavator',
+        'https://8cbc-182-1-64-57.ngrok-free.app/api/excavator',
       );
       const responseWheelLoader = await axios.get(
-        'https://7a9a-182-1-115-13.ngrok-free.app/api/wheelLoader',
+        'https://8cbc-182-1-64-57.ngrok-free.app/api/wheelLoader',
       );
       const responseForklift = await axios.get(
-        'https://7a9a-182-1-115-13.ngrok-free.app/api/forklift',
+        'https://8cbc-182-1-64-57.ngrok-free.app/api/forklift',
       );
       // Set the 'jenis' property to 'Excavator' for each element in the 'responseExcavator.data.data' array
       const excavatorData = responseExcavator.data.data.map(element => ({
@@ -105,7 +105,7 @@ export default class ProcessOrderPCS extends Component {
                 <View style={styles.txt}>
                   <Text style={styles.textList}>{val.pekerjaan}</Text>
                   <View style={styles.card}>
-                    <Text style={styles.txtList}>On Process</Text>
+                    <Text style={styles.txtList}>Data Masuk</Text>
                   </View>
                 </View>
                 {val.kapal && (

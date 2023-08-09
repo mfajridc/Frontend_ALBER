@@ -50,7 +50,7 @@ const SubmissionTracking = ({navigation, route}) => {
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('ProcessOrder')}>
+          onPress={() => navigation.navigate('ProcessOrderPCS')}>
           <View style={style.box}>
             <View style={style.inner}>
               <Image

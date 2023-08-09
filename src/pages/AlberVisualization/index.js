@@ -1,117 +1,201 @@
-import React from "react";
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
-import { IBack, ILogoo } from "../../assets/icons";
-import { FlatList } from 'react-native-gesture-handler';
-import colors from '../../assets/components/atom/colors';
-import { Input } from "../../assets/components/atom";
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import { IBack, ILogoo } from '../../assets/icons';
+import axios from 'axios';
 
 const AlberVisualization = ({ navigation }) => {
+  const [groupedData, setGroupedData] = useState([]);
 
-  const data = [
-    { name: "Excavator", code: "Exc", count: 2, color: "green" },
-    { name: "Forklift", code: "Fo", count: 1, color: "blue" },
-    { name: "Wheel Loader", code: "Wd", count: 3, color: "red" },
-  ];
+  useEffect(() => {
+    fetchDataAndUpdateCounts();
+  }, []);
 
-  const groupedData = data.reduce((acc, item) => {
-    if (!acc[item.name]) {
-      acc[item.name] = [];
+  const fetchData = async () => {
+    try {
+      const responseExcavator = await axios.get(
+        'https://8cbc-182-1-64-57.ngrok-free.app/api/excavator',
+      );
+      const responseWheelLoader = await axios.get(
+        'https://8cbc-182-1-64-57.ngrok-free.app/api/wheelLoader',
+      );
+      const responseForklift = await axios.get(
+        'https://8cbc-182-1-64-57.ngrok-free.app/api/forklift',
+      );
+
+      const excavatorData = responseExcavator.data.data.map(element => ({
+        ...element,
+        jenis: 'Excavator',
+      }));
+      const wheelLoaderData = responseWheelLoader.data.data.map(element => ({
+        ...element,
+        jenis: 'Wheel Loader',
+      }));
+      const forkliftData = responseForklift.data.data.map(element => ({
+        ...element,
+        jenis: 'Forklift',
+      }));
+
+      const mergedData = [
+        ...excavatorData,
+        ...wheelLoaderData,
+        ...forkliftData,
+      ];
+
+      return mergedData;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
     }
-    acc[item.name].push(item);
-    return acc;
-  }, {});
+  };
 
-  const renderAlatBeratRow = ({ item }) => (
-    <View style={style.row}>
-      <View style={[style.box, { backgroundColor: item.color }]}>
-        <Text style={style.text}>{item.count}</Text>
+  const fetchDataAndUpdateCounts = async () => {
+    try {
+      const sampleData = await fetchData();
+
+      const counts = {
+        Excavator: 0,
+        Forklift: 0,
+        'Wheel Loader': 0,
+      };
+
+      sampleData.forEach(item => {
+        counts[item.jenis]++;
+      });
+
+      const newGroupedData = [
+        {
+          name: 'Excavator',
+          code: 'Exc',
+          count: counts.Excavator,
+          color: 'green',
+        },
+        {
+          name: 'Forklift',
+          code: 'Fo',
+          count: counts.Forklift,
+          color: 'blue',
+        },
+        {
+          name: 'Wheel Loader',
+          code: 'Wd',
+          count: counts['Wheel Loader'],
+          color: 'red',
+        },
+      ];
+
+      setGroupedData(newGroupedData);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+   const renderTable = () => (
+    <View style={styles.table}>
+      <View style={styles.tableRow}>
+        {groupedData.map((item, index) => (
+          <View key={item.name} style={[styles.tableHeaderCell, index !== 0 && styles.columnBorder]}>
+            <Text style={styles.columnHeaderText}>{item.name}</Text>
+          </View>
+        ))}
       </View>
-      <Text style={style.alatName}>{item.code}</Text>
+      <View style={styles.tableRow}>
+        {groupedData.map((item, index) => (
+          <View key={item.name} style={[styles.tableCell, styles.columnBorder, { backgroundColor: item.color }]}>
+            <Text style={styles.countText}>{item.count}</Text>
+          </View>
+        ))}
+      </View>
     </View>
   );
 
-  const renderColumn = ({ item }) => (
-    <View style={style.column}>
-      <Text style={style.columnHeader}>{item.name}</Text>
-      <FlatList
-        data={item.data}
-        renderItem={renderAlatBeratRow}
-        keyExtractor={(item) => item.code}
-      />
-    </View>
-  );
 
   return (
-    <View style={{
-      flex: 1,
-      backgroundColor: '#fff',
-    }}>
-      <View style={style.header}>
+    <View style={styles.container}>
+      <View style={styles.header}>
         <Pressable onPress={() => navigation.goBack()}>
-          <Image source={IBack} style={{
-            width: 32,
-            height: 32
-          }} />
+          <Image source={IBack} style={styles.backButton} />
         </Pressable>
-        <Image source={ILogoo} style={{ width: 208, height: 30 }} />
+        <Image source={ILogoo} style={styles.logo} />
       </View>
 
-      <View style={{ alignItems: 'center' }}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 20, marginBottom: 20, color: "#3C3C3C" }}>Alber Visualization</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Alber Visualization</Text>
       </View>
 
-      <FlatList
-        data={Object.keys(groupedData).map((key) => ({
-          name: key,
-          data: groupedData[key],
-        }))}
-        renderItem={renderColumn}
-        keyExtractor={(item) => item.name}
-        horizontal
-      />
+      {renderTable()}
     </View>
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   header: {
-    paddingHorizontal: 20,
-    marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    marginTop: 20,
   },
-  column: {
+  backButton: {
+    width: 32,
+    height: 32,
+  },
+  logo: {
+    width: 208,
+    height: 30,
+  },
+  titleContainer: {
     alignItems: 'center',
-    marginHorizontal: 28,
+    marginVertical: 20,
   },
-  row: {
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#3C3C3C',
+  },
+  table: {
+    borderWidth: 1,
+    borderColor: '#3C3C3C',
+    marginHorizontal: 15,
+  },
+  tableRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: '#3C3C3C',
   },
-  box: {
-    borderRadius: 1,
-    width: 25,
-    height: 25,
+  tableHeaderCell: {
+    flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    fontWeight: 'bold',
+    fontSize: 1,
+    color: '#fff',
+    textAlign: 'center',
+    backgroundColor: '#F2F2F2',
+  },
+  tableCell: {
+    flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    fontSize: 16,
+    color: '#3C3C3C',
+    textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 10,
   },
-  text: {
-    textAlign: 'center',
+  countText: {
+    fontSize: 15,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  columnHeaderText: {
+    fontWeight: 'bold',
     fontSize: 14,
-    fontWeight: 'bold',
+    color: '#3C3C3C',
+    textAlign: 'center',
   },
-  alatName: {
-    fontSize: 13,
-    fontWeight: 'bold',
-    color: "#3C3C3C",
-  },
-  columnHeader: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  }
 });
 
 export default AlberVisualization;
