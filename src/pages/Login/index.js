@@ -12,6 +12,7 @@ import {
 import {IGambarLogo} from '../../assets/images';
 import {BtnLogin, Input} from '../../assets/components/atom';
 import Loading from 'react-native-whc-loading';
+import {setRole,setName} from '../../User';
 
 export default class Login extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ export default class Login extends Component {
   login = () => {
     var UserName = this.state.name;
     var Password = this.state.password;
-    var InsertAPIURL = 'https://8cbc-182-1-64-57.ngrok-free.app/api/login';
+    var InsertAPIURL = 'https://f4d1-182-1-89-243.ngrok-free.app/api/login';
 
     var headers = {
       'Access-Control-Allow-Origin': 'true',
@@ -45,7 +46,10 @@ export default class Login extends Component {
       .then(response => response.json())
       .then(response => {
         if (response.success) {
-          var role = response.data.role;
+          var role = response.role;
+          var name = response.name;
+          setRole(role);
+          setName(name);
           if (role === 'admin_pg') {
             alert('Successfully Login');
             this.props.navigation.navigate('HomeScreen');

@@ -13,8 +13,10 @@ import alatberat from '../../assets/components/atom/Alber/alatberat';
 import colors from '../../assets/components/atom/colors';
 import {Input} from '../../assets/components/atom';
 import {IHistory, IProcess} from '../../assets/icons';
+import {getRole} from '../../User';
 
 const SubmissionTracking = ({navigation, route}) => {
+  var role = getRole();
   return (
     <View
       style={{
@@ -50,7 +52,13 @@ const SubmissionTracking = ({navigation, route}) => {
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('ProcessOrderPCS')}>
+          onPress={() => {
+            if (role === 'admin_pg') {
+              navigation.navigate('ProcessOrder');
+            } else {
+              navigation.navigate('ProcessOrderPCS');
+            }
+          }}>
           <View style={style.box}>
             <View style={style.inner}>
               <Image
