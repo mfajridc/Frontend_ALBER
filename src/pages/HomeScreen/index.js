@@ -72,7 +72,7 @@ const HomePage = ({navigation, route}) => {
           <Text
             style={{
               fontSize: 20,
-              fontWeight: '800',
+              fontWeight: 'bold',
               color: '#3A3A3A',
               fontFamily: 'Poppins-Black',
               marginTop: 10,

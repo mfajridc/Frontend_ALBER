@@ -11,6 +11,7 @@ import {
   WheelLoader,
   AlberVisualization,
   Setting,
+  PCSSetting,
   Excavator,
   Forklift,
   SubmissionTracking,
@@ -90,6 +91,11 @@ const App = () => {
         <Stack.Screen
           name="Setting"
           component={Setting}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PCSSetting"
+          component={PCSSetting}
           options={{headerShown: false}}
         />
         <Stack.Screen

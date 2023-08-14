@@ -134,7 +134,7 @@ const HomePCS = ({navigation, route}) => {
 
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Setting')}>
+          onPress={() => navigation.navigate('PCSSetting')}>
           <View style={style.box}>
             <View style={style.inner}>
               <Image

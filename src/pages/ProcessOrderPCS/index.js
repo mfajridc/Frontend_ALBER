@@ -35,13 +35,13 @@ export default class ProcessOrderPCS extends Component {
     try {
       let response = [];
       const responseExcavator = await axios.get(
-        'https://96f9-182-1-64-57.ngrok-free.app/api/excavator',
+        'https://e19b-182-1-117-152.ngrok-free.app/api/excavator',
       );
       const responseWheelLoader = await axios.get(
-        'https://96f9-182-1-64-57.ngrok-free.app/api/wheelLoader',
+        'https://e19b-182-1-117-152.ngrok-free.app/api/wheelLoader',
       );
       const responseForklift = await axios.get(
-        'https://96f9-182-1-64-57.ngrok-free.app/api/forklift',
+        'https://e19b-182-1-117-152.ngrok-free.app/api/forklift',
       );
       // Set the 'jenis' property to 'Excavator' for each element in the 'responseExcavator.data.data' array
       const excavatorData = responseExcavator.data.data.map(element => ({

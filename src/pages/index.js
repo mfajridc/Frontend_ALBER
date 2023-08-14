@@ -9,6 +9,7 @@ import HomeScreen from './HomeScreen';
 import HomePCS from './HomePCS';
 import AlberVisualization from './AlberVisualization';
 import Setting from './Setting';
+import PCSSetting from './PCSSetting';
 import Excavator from './Excavator';
 import Forklift from './Forklift';
 import SubmissionTracking from './SubmissionTracking';
@@ -28,6 +29,7 @@ export {
   HomePCS,
   AlberVisualization,
   Setting,
+  PCSSetting,
   Excavator,
   Forklift,
   SubmissionTracking,

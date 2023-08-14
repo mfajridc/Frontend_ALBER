@@ -13,13 +13,13 @@ const AlberVisualization = ({ navigation }) => {
   const fetchData = async () => {
     try {
       const responseExcavator = await axios.get(
-        'https://8cbc-182-1-64-57.ngrok-free.app/api/excavator',
+        'https://e19b-182-1-117-152.ngrok-free.app/api/excavator',
       );
       const responseWheelLoader = await axios.get(
-        'https://8cbc-182-1-64-57.ngrok-free.app/api/wheelLoader',
+        'https://e19b-182-1-117-152.ngrok-free.app/api/wheelLoader',
       );
       const responseForklift = await axios.get(
-        'https://8cbc-182-1-64-57.ngrok-free.app/api/forklift',
+        'https://e19b-182-1-117-152.ngrok-free.app/api/forklift',
       );
 
       const excavatorData = responseExcavator.data.data.map(element => ({
@@ -89,25 +89,26 @@ const AlberVisualization = ({ navigation }) => {
     }
   };
 
-   const renderTable = () => (
-    <View style={styles.table}>
-      <View style={styles.tableRow}>
+  const renderTable = () => (
+    <View style={styles.tableContainer}>
+      <View style={styles.tableHeaderRow}>
         {groupedData.map((item, index) => (
-          <View key={item.name} style={[styles.tableHeaderCell, index !== 0 && styles.columnBorder]}>
+          <View key={item.name} style={styles.tableHeaderCell}>
             <Text style={styles.columnHeaderText}>{item.name}</Text>
           </View>
         ))}
       </View>
       <View style={styles.tableRow}>
         {groupedData.map((item, index) => (
-          <View key={item.name} style={[styles.tableCell, styles.columnBorder, { backgroundColor: item.color }]}>
-            <Text style={styles.countText}>{item.count}</Text>
+          <View key={item.name} style={styles.tableCell}>
+            <View style={[styles.box, { backgroundColor: item.color }]}>
+              <Text style={styles.boxText}>{item.count}</Text>
+            </View>
           </View>
         ))}
       </View>
     </View>
   );
-
 
   return (
     <View style={styles.container}>
@@ -155,45 +156,53 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#3C3C3C',
   },
-  table: {
-    borderWidth: 1,
-    borderColor: '#3C3C3C',
+  tableContainer: {
     marginHorizontal: 15,
   },
   tableRow: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: '#3C3C3C',
+  },
+  tableHeaderRow: {
+    flexDirection: 'row',
+  },
+  tableCell: {
+    flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   tableHeaderCell: {
     flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 5,
     fontWeight: 'bold',
-    fontSize: 1,
-    color: '#fff',
+    color: '#3C3C3C',
     textAlign: 'center',
     backgroundColor: '#F2F2F2',
   },
-  tableCell: {
-    flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 5,
-    fontSize: 16,
-    color: '#3C3C3C',
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   countText: {
-    fontSize: 15,
-    color: 'white',
+    fontSize: 14,
+    color: '#3C3C3C',
     fontWeight: 'bold',
   },
   columnHeaderText: {
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 12,
     color: '#3C3C3C',
+    textAlign: 'center',
+  },
+  box: {
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  boxText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
     textAlign: 'center',
   },
 });

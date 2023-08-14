@@ -15,7 +15,7 @@ import colors from '../../assets/components/atom/colors';
 import WelcomePage from '../WelcomePage';
 import {getRole, getName} from '../../User.js';
 
-const Setting = ({navigation}) => {
+const PCSSetting = ({navigation}) => {
   var role = getRole();
   var name = getName();
 
@@ -77,7 +77,7 @@ const Setting = ({navigation}) => {
             fontFamily: 'Poppins-Black',
             marginTop: 15,
           }}>
-          Admin PG
+          Admin PCS
         </Text>
       </View>
 
@@ -179,4 +179,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default Setting;
+export default PCSSetting;
