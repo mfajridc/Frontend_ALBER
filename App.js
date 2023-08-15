@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {
   SplashScreen,
@@ -21,10 +21,27 @@ import {
 } from './src/pages';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import * as Font from 'expo-font'; // Import expo-font
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const [fontLoaded, setFontLoaded] = useState(false); // Add fontLoaded state
+  useEffect(() => {
+    // Load and register the custom font
+    async function loadFont() {
+      await Font.loadAsync({
+        'Poppins-Bold': require('./src/assets/fonts/Poppins-Bold.ttf'), // Replace with the correct font path
+      });
+      setFontLoaded(true);
+    }
+
+    loadFont();
+  }, []);
+
+  if (!fontLoaded) {
+    return null; // Return null or a loading indicator while the font is loading
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SplashScreen">

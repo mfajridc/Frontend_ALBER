@@ -25,7 +25,13 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    name: {fontSize: 30, fontWeight: 'bold', color:'#06AC4D', fontFamily:'Poppins-Bold',marginTop: 8}
+    name: {
+        fontSize: 30, 
+        fontWeight: 'bold', 
+        color:'#06AC4D', 
+        fontFamily: 'Poppins-Bold',
+        marginTop: 8
+    }
 });
 
 export default SplashScreen;

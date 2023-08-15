@@ -26,7 +26,7 @@ export default class Login extends Component {
   login = () => {
     var UserName = this.state.name;
     var Password = this.state.password;
-    var InsertAPIURL = 'https://e19b-182-1-117-152.ngrok-free.app/api/login';
+    var InsertAPIURL = 'https://aba9-182-1-88-201.ngrok-free.app/api/login';
 
     var headers = {
       'Access-Control-Allow-Origin': 'true',

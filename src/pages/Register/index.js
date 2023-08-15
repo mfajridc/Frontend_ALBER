@@ -44,7 +44,7 @@ export default class Register extends Component {
       alert('Required Field Is Missing!');
     } else {
       axios
-        .post('https://e19b-182-1-117-152.ngrok-free.app/api/register', {
+        .post('https://aba9-182-1-88-201.ngrok-free.app/api/register', {
           name,
           role,
           password,
@@ -86,14 +86,17 @@ export default class Register extends Component {
           <Picker
             style={style.pickerteks}
             selectedValue={role}
-            onValueChange={role =>
-              this.setState(prevState => ({
-                formData: {
-                  ...prevState.formData,
-                  role,
-                },
-              }))
-            }>
+            onValueChange={role => {
+              if (role !== '') {
+                this.setState(prevState => ({
+                  formData: {
+                    ...prevState.formData,
+                    role,
+                  },
+                }));
+              }
+            }}>
+            <Picker.Item label="Select Role" value="" />
             {this.state.user_role.map((item, index) => (
               <Picker.Item
                 key={index}
