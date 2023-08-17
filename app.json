@@ -1,4 +1,23 @@
 {
   "name": "projectpertama",
-  "displayName": "projectpertama"
+  "displayName": "projectpertama",
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "756bc679-470c-47bf-bff9-6290e0771c89"
+      }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
+          }
+        }
+      ]
+    ]
+  }
 }
