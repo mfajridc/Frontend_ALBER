@@ -12,7 +12,7 @@ import {
 import {IGambarLogo} from '../../assets/images';
 import {BtnLogin, Input} from '../../assets/components/atom';
 import Loading from 'react-native-whc-loading';
-import {setRole,setName} from '../../User';
+import {setRole, setName} from '../../User';
 
 export default class Login extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ export default class Login extends Component {
   login = () => {
     var UserName = this.state.name;
     var Password = this.state.password;
-    var InsertAPIURL = 'https://31fe-114-125-110-71.ngrok-free.app/api/login';
+    var InsertAPIURL = 'http://10.14.16.155/backend_laravel/public/api/login';
 
     var headers = {
       'Access-Control-Allow-Origin': 'true',

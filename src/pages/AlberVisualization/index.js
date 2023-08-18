@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
-import { IBack, ILogoo } from '../../assets/icons';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
+import {IBack, ILogoo} from '../../assets/icons';
 import axios from 'axios';
 
-const AlberVisualization = ({ navigation }) => {
+const AlberVisualization = ({navigation}) => {
   const [groupedData, setGroupedData] = useState([]);
 
   useEffect(() => {
@@ -13,13 +13,13 @@ const AlberVisualization = ({ navigation }) => {
   const fetchData = async () => {
     try {
       const responseExcavator = await axios.get(
-        'https://e19b-182-1-117-152.ngrok-free.app/api/excavator',
+        'http://10.14.16.155/backend_laravel/public/api/excavator',
       );
       const responseWheelLoader = await axios.get(
-        'https://e19b-182-1-117-152.ngrok-free.app/api/wheelLoader',
+        'http://10.14.16.155/backend_laravel/public/api/wheelLoader',
       );
       const responseForklift = await axios.get(
-        'https://e19b-182-1-117-152.ngrok-free.app/api/forklift',
+        'http://10.14.16.155/backend_laravel/public/api/forklift',
       );
 
       const excavatorData = responseExcavator.data.data.map(element => ({
@@ -101,7 +101,7 @@ const AlberVisualization = ({ navigation }) => {
       <View style={styles.tableRow}>
         {groupedData.map((item, index) => (
           <View key={item.name} style={styles.tableCell}>
-            <View style={[styles.box, { backgroundColor: item.color }]}>
+            <View style={[styles.box, {backgroundColor: item.color}]}>
               <Text style={styles.boxText}>{item.count}</Text>
             </View>
           </View>
