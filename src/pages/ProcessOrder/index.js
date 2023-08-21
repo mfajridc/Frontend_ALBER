@@ -35,13 +35,13 @@ export default class ProcessOrderPCS extends Component {
     try {
       let response = [];
       const responseExcavator = await axios.get(
-        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/excavator',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/excavator',
       );
       const responseWheelLoader = await axios.get(
-        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/wheelLoader',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/wheelLoader',
       );
       const responseForklift = await axios.get(
-        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/forklift',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/forklift',
       );
       // Set the 'jenis' property to 'Excavator' for each element in the 'responseExcavator.data.data' array
       const excavatorData = responseExcavator.data.data.map(element => ({
@@ -100,12 +100,21 @@ export default class ProcessOrderPCS extends Component {
         <View style={styles.ViewWrapper}>
           <View style={styles.ViewData}>
             {this.state.listData.map((val, index) => (
-              <View style={styles.viewList} key={index}>
+              <View
+                style={val.status ? styles.viewList2 : styles.viewList}
+                key={index}>
                 <Text style={styles.text}>{val.jenis}</Text>
                 <View style={styles.txt}>
                   <Text style={styles.textList}>{val.pekerjaan}</Text>
                   <View style={styles.card}>
-                    <Text style={styles.txtList}>On Process</Text>
+                    <Text
+                      style={
+                        val.status
+                          ? styles.approvedButton
+                          : styles.approvedButton2
+                      }>
+                      {val.status ? 'OK' : 'On Process'}
+                    </Text>
                   </View>
                 </View>
                 {val.kapal && (
@@ -140,6 +149,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#AAFF9C',
     borderRadius: 10,
   },
+  viewList2: {
+    marginStart: 6,
+    marginBottom: 10,
+    width: 335,
+    height: 110,
+    backgroundColor: '#F0D800',
+    borderRadius: 10,
+  },
   text: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -168,5 +185,27 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: '#F0D800',
     marginRight: 10,
+  },
+  approvedButton: {
+    width: 60,
+    height: 20,
+    marginRight: 0,
+    borderRadius: 5,
+    backgroundColor: '#3C3C3C',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    color: 'white',
+  },
+  approvedButton2: {
+    width: 80,
+    height: 20,
+    marginRight: 0,
+    borderRadius: 5,
+    backgroundColor: '#3C3C3C',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    color: 'white',
   },
 });

@@ -23,13 +23,13 @@ export default class HistoryOrder extends Component {
     try {
       let response = [];
       const responseExcavator = await axios.get(
-        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/excavator',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/excavator',
       );
       const responseWheelLoader = await axios.get(
-        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/wheelLoader',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/wheelLoader',
       );
       const responseForklift = await axios.get(
-        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/forklift',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/forklift',
       );
       // Set the 'jenis' property to 'Excavator' for each element in the 'responseExcavator.data.data' array
       const excavatorData = responseExcavator.data.data.map(element => ({
@@ -110,11 +110,9 @@ export default class HistoryOrder extends Component {
           <View style={styles.headerRow}>
             <Text style={[styles.headerText, {textAlign: 'center'}]}>Time</Text>
             <Text style={[styles.headerText, {textAlign: 'center'}]}>
-              Alber
-            </Text>
-            <Text style={[styles.headerText, {textAlign: 'center'}]}>
               Activity
             </Text>
+            <Text style={[styles.headerText, {textAlign: 'center'}]}>PIC</Text>
           </View>
           {this.state.listData.map((activity, index) => (
             <View key={index} style={styles.rowContainer}>
@@ -122,11 +120,9 @@ export default class HistoryOrder extends Component {
                 {convertToAmPmFormat(activity.created_at)}
               </Text>
               <Text style={[styles.activityText, {textAlign: 'center'}]}>
-                {activity.jenis}
-              </Text>
-              <Text style={[styles.activityText, {textAlign: 'center'}]}>
                 {activity.pekerjaan}
               </Text>
+              <Text style={[styles.activityText, {textAlign: 'center'}]}></Text>
             </View>
           ))}
         </View>

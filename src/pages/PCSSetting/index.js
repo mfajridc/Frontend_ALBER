@@ -74,7 +74,6 @@ const PCSSetting = ({navigation}) => {
             fontSize: 18,
             fontWeight: '700',
             color: '#6D6D6D',
-            fontFamily: 'Poppins-Black',
             marginTop: 15,
           }}>
           Admin PCS

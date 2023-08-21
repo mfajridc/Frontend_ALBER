@@ -45,7 +45,7 @@ export default class Register extends Component {
     } else {
       axios
         .post(
-          'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/register',
+          'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/register',
           {
             name,
             role,

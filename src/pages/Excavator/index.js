@@ -37,14 +37,17 @@ export default class Excavator extends Component {
 
   send = async () => {
     try {
-      await fetch('https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/excavator', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+      await fetch(
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/excavator',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.state.formData),
         },
-        body: JSON.stringify(this.state.formData),
-      })
+      )
         .then(response => response.json())
         .then(json => {
           alert('Order Request Success!');

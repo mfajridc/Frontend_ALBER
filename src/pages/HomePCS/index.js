@@ -65,7 +65,7 @@ const HomePCS = ({navigation, route}) => {
               fontSize: 18,
               fontWeight: '400',
               color: '#3A3A3A',
-              marginTop: 30,
+              marginTop: 10,
             }}>
             {name}
           </Text>
@@ -74,7 +74,6 @@ const HomePCS = ({navigation, route}) => {
               fontSize: 18,
               fontWeight: '700',
               color: '#3A3A3A',
-              fontFamily: 'Poppins-Black',
               marginTop: 10,
             }}>
             Admin PCS

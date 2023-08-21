@@ -13,13 +13,13 @@ const AlberVisualization = ({navigation}) => {
   const fetchData = async () => {
     try {
       const responseExcavator = await axios.get(
-        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/excavator',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/excavator',
       );
       const responseWheelLoader = await axios.get(
-        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/wheelLoader',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/wheelLoader',
       );
       const responseForklift = await axios.get(
-        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/forklift',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/forklift',
       );
 
       const excavatorData = responseExcavator.data.data.map(element => ({

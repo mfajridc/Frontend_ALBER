@@ -84,8 +84,7 @@ const Home =({navigation}) => {
         <Text style={{
             fontSize:18,
             fontWeight:'700',
-            color:'#3A3A3A', 
-            fontFamily: 'Poppins-Black'
+            color:'#3A3A3A'
         }}>Admin PG</Text>
         </View>
 

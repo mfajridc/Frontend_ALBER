@@ -36,7 +36,7 @@ export default class WheelLoader extends Component {
   send = async () => {
     try {
       await fetch(
-        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/wheelLoader',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/wheelLoader',
         {
           method: 'POST',
           headers: {
