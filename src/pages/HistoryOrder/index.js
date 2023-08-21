@@ -23,13 +23,13 @@ export default class HistoryOrder extends Component {
     try {
       let response = [];
       const responseExcavator = await axios.get(
-        'http://10.14.16.155/backend_laravel/public/api/excavator',
+        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/excavator',
       );
       const responseWheelLoader = await axios.get(
-        'http://10.14.16.155/backend_laravel/public/api/wheelLoader',
+        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/wheelLoader',
       );
       const responseForklift = await axios.get(
-        'http://10.14.16.155/backend_laravel/public/api/forklift',
+        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/forklift',
       );
       // Set the 'jenis' property to 'Excavator' for each element in the 'responseExcavator.data.data' array
       const excavatorData = responseExcavator.data.data.map(element => ({
@@ -110,6 +110,9 @@ export default class HistoryOrder extends Component {
           <View style={styles.headerRow}>
             <Text style={[styles.headerText, {textAlign: 'center'}]}>Time</Text>
             <Text style={[styles.headerText, {textAlign: 'center'}]}>
+              Alber
+            </Text>
+            <Text style={[styles.headerText, {textAlign: 'center'}]}>
               Activity
             </Text>
           </View>
@@ -117,6 +120,9 @@ export default class HistoryOrder extends Component {
             <View key={index} style={styles.rowContainer}>
               <Text style={[styles.timeText, {textAlign: 'center'}]}>
                 {convertToAmPmFormat(activity.created_at)}
+              </Text>
+              <Text style={[styles.activityText, {textAlign: 'center'}]}>
+                {activity.jenis}
               </Text>
               <Text style={[styles.activityText, {textAlign: 'center'}]}>
                 {activity.pekerjaan}

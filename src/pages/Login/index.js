@@ -26,7 +26,8 @@ export default class Login extends Component {
   login = () => {
     var UserName = this.state.name;
     var Password = this.state.password;
-    var InsertAPIURL = 'http://10.14.16.155/backend_laravel/public/api/login';
+    var InsertAPIURL =
+      'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/login';
 
     var headers = {
       'Access-Control-Allow-Origin': 'true',

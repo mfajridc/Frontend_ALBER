@@ -35,14 +35,17 @@ export default class WheelLoader extends Component {
 
   send = async () => {
     try {
-      await fetch('https://ad73-182-1-115-13.ngrok-free.app/api/wheelLoader', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+      await fetch(
+        'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/wheelLoader',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.state.formData),
         },
-        body: JSON.stringify(this.state.formData),
-      })
+      )
         .then(response => response.json())
         .then(json => {
           alert('Order Request Success!');

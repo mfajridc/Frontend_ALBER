@@ -41,7 +41,7 @@ export default class Forklift extends Component {
 
   send = async () => {
     try {
-      await fetch('https://ad73-182-1-115-13.ngrok-free.app/api/forklift', {
+      await fetch('https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/forklift', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

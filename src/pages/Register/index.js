@@ -44,11 +44,14 @@ export default class Register extends Component {
       alert('Required Field Is Missing!');
     } else {
       axios
-        .post('http://10.14.16.155/backend_laravel/public/api/register', {
-          name,
-          role,
-          password,
-        })
+        .post(
+          'https://fd41-182-23-102-214.ngrok-free.app/backend_laravel/public/api/register',
+          {
+            name,
+            role,
+            password,
+          },
+        )
         .then(response => {
           console.log(response);
           alert('Login successful!');
