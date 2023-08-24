@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import {IBack, ILogoo} from '../../assets/icons';
 import axios from 'axios';
-import {Storage} from 'expo-storage';
-export default class HistoryOrder extends Component {
+export default class Tracking extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,18 +20,16 @@ export default class HistoryOrder extends Component {
   }
 
   async fetchData() {
-    const APIURL =  await Storage.getItem({ key: 'api-url' });
-      const URL = `${APIURL}/backend_laravel/public/api/`;
     try {
       let response = [];
       const responseExcavator = await axios.get(
-        URL + 'excavator',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/excavator',
       );
       const responseWheelLoader = await axios.get(
-        URL + 'wheelLoader',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/wheelLoader',
       );
       const responseForklift = await axios.get(
-        URL + 'forklift',
+        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/forklift',
       );
       // Set the 'jenis' property to 'Excavator' for each element in the 'responseExcavator.data.data' array
       const excavatorData = responseExcavator.data.data.map(element => ({
@@ -111,11 +108,11 @@ export default class HistoryOrder extends Component {
 
         <View style={styles.tableContainer}>
           <View style={styles.headerRow}>
-            <Text style={[styles.headerText, {textAlign: 'center'}]}>Time</Text>
+            <Text style={[styles.headerText, {textAlign: 'center'}]}>Time Request</Text>
             <Text style={[styles.headerText, {textAlign: 'center'}]}>
-              Activity
+              Alber
             </Text>
-            <Text style={[styles.headerText, {textAlign: 'center'}]}>PIC</Text>
+            <Text style={[styles.headerText, {textAlign: 'center'}]}>User</Text>
           </View>
           {this.state.listData.map((activity, index) => (
             <View key={index} style={styles.rowContainer}>

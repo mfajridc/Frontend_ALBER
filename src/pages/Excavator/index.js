@@ -14,6 +14,7 @@ import colors from '../../assets/components/atom/colors';
 import {Form} from '../../assets/components/atom/Form';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Picker} from '@react-native-picker/picker';
+import {Storage} from 'expo-storage';
 
 export default class Excavator extends Component {
   constructor(props) {
@@ -25,10 +26,10 @@ export default class Excavator extends Component {
       areaCleaning: ['Area Cleaning UBB', 'Area Cleaning Pabrik 1'],
       formData: {
         no_order: '',
-        pekerjaan: '',
+        pekerjaan: 'Loading/Unloading',
         kapal: '',
-        no_palka: '',
-        area: '',
+        no_palka: '1',
+        area: 'Area Cleaning UBB',
         time_start: '',
         time_end: '',
       },
@@ -36,9 +37,11 @@ export default class Excavator extends Component {
   }
 
   send = async () => {
+    const APIURL =  await Storage.getItem({ key: 'api-url' });
+    const excURL = `${APIURL}/backend_laravel/public/api/excavator`;
     try {
       await fetch(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/excavator',
+        excURL,
         {
           method: 'POST',
           headers: {
@@ -55,10 +58,10 @@ export default class Excavator extends Component {
           this.setState({
             formData: {
               no_order: '',
-              pekerjaan: '',
+              pekerjaan: 'Loading/Unloading',
               kapal: '',
-              no_palka: '',
-              area: '',
+              no_palka: '1',
+              area: '-',
               time_start: '',
               time_end: '',
             },

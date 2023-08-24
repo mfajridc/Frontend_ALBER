@@ -16,6 +16,8 @@ import SubmissionTracking from './SubmissionTracking';
 import ProcessOrder from './ProcessOrder';
 import ProcessOrderPCS from './ProcessOrderPCS';
 import HistoryOrder from './HistoryOrder';
+import Tracking from './Tracking';
+import APIchange from './APIchange';
 
 export {
   SplashScreen,
@@ -36,4 +38,6 @@ export {
   ProcessOrder,
   ProcessOrderPCS,
   HistoryOrder,
+  Tracking,
+  APIchange,
 };

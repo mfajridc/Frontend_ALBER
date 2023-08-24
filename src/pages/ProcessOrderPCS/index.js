@@ -13,9 +13,10 @@ import alatberat from '../../assets/components/atom/Alber/alatberat';
 import colors from '../../assets/components/atom/colors';
 import {log} from 'react-native-reanimated';
 import axios from 'axios';
+import {Storage} from 'expo-storage';
 
 export default class ProcessOrderPCS extends Component {
-  constructor(props) {
+  constructor(props,) {
     super(props);
     this.state = {
       listData: [], // Update the listData state with the sampleData
@@ -27,23 +28,25 @@ export default class ProcessOrderPCS extends Component {
   async componentDidMount() {
     try {
       const sampleData = await this.fetchData();
-      this.setState({ listData: sampleData });
+      this.setState({listData: sampleData});
     } catch (error) {
       console.error('Error:', error);
     }
   }
 
   async fetchData() {
+    const APIURL =  await Storage.getItem({ key: 'api-url' });
+      const URL = `${APIURL}/backend_laravel/public/api/`;
     try {
       let response = [];
       const responseExcavator = await axios.get(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/excavator',
+        URL + 'excavator',
       );
       const responseWheelLoader = await axios.get(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/wheelLoader',
+        URL + 'wheelLoader',
       );
       const responseForklift = await axios.get(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/forklift',
+        URL + 'forklift',
       );
       // Set the 'jenis' property to 'Excavator' for each element in the 'responseExcavator.data.data' array
       const excavatorData = responseExcavator.data.data.map(element => ({
@@ -76,13 +79,15 @@ export default class ProcessOrderPCS extends Component {
   }
 
   async statusData(id, jenis) {
+    const APIURL =  await Storage.getItem({ key: 'api-url' });
+      const URL = `${APIURL}/backend_laravel/public/api/`;
     try {
       const response = await axios.put(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/status',
+        URL + 'status',
         {
           id: id,
           jenis: jenis,
-        }
+        },
       );
       return response;
     } catch (error) {
@@ -90,9 +95,8 @@ export default class ProcessOrderPCS extends Component {
       throw error;
     }
   }
-  
 
-  handleApproveClick = async (index,id,jenis) => {
+  handleApproveClick = async (index, id, jenis) => {
     this.setState(prevState => ({
       approveStatus: {
         ...prevState.approveStatus,
@@ -107,10 +111,9 @@ export default class ProcessOrderPCS extends Component {
     }
   };
 
-
   render() {
     const {navigation} = this.props;
-    const { isGlobalApproved } = this.state;
+    const {isGlobalApproved} = this.state;
 
     return (
       <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -133,10 +136,20 @@ export default class ProcessOrderPCS extends Component {
           </Text>
         </View>
 
-        <View style={[styles.ViewWrapper, isGlobalApproved ? styles.approvedWrapper : null]}>
+        <View
+          style={[
+            styles.ViewWrapper,
+            isGlobalApproved ? styles.approvedWrapper : null,
+          ]}>
           <View style={styles.ViewData}>
             {this.state.listData.map((val, index) => (
-              <View style={val.status || this.state.approveStatus[index] ? styles.viewList2:styles.viewList} key={index}>
+              <View
+                style={
+                  val.status || this.state.approveStatus[index]
+                    ? styles.viewList2
+                    : styles.viewList
+                }
+                key={index}>
                 <Text style={styles.text}>{val.jenis}</Text>
                 <View style={styles.txt}>
                   <Text style={styles.textList}>{val.pekerjaan}</Text>
@@ -148,7 +161,9 @@ export default class ProcessOrderPCS extends Component {
                           ? styles.approvedButton
                           : null,
                       ]}
-                      onPress={() => this.handleApproveClick(index,val.id,val.jenis)}>
+                      onPress={() =>
+                        this.handleApproveClick(index, val.id, val.jenis)
+                      }>
                       <Text
                         style={[
                           styles.txtList,
@@ -156,9 +171,18 @@ export default class ProcessOrderPCS extends Component {
                             ? styles.approvedText
                             : null,
                         ]}>
-                        {val.status || this.state.approveStatus[index] ? 'Approved' : 'Approve'}
+                        {val.status || this.state.approveStatus[index]
+                          ? 'Approved'
+                          : 'Approve'}
                       </Text>
                     </Pressable>
+                    <View style={styles.trackingButtonWrapper}>
+                      <Pressable
+                        style={styles.trackingButton}
+                        onPress={() => navigation.navigate('Tracking')}>
+                        <Text style={styles.trackingButtonText}>Tracking</Text>
+                      </Pressable>
+                    </View>
                   </View>
                 </View>
                 {val.kapal && (
@@ -247,5 +271,22 @@ const styles = StyleSheet.create({
   },
   approvedWrapper: {
     backgroundColor: '#3C3C3C', // Change the background color when global approval happens
-  }
+  },
+  trackingButtonWrapper: {
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  trackingButton: {
+    width: 60,
+    height: 20,
+    backgroundColor: '#F0D800', // Change the color as needed
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  trackingButtonText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#117C00',
+  },
 });

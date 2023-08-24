@@ -15,6 +15,7 @@ import {Form} from '../../assets/components/atom/Form';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Picker} from '@react-native-picker/picker';
 import {Dropdown} from 'react-native-material-dropdown';
+import {Storage} from 'expo-storage';
 
 export default class Forklift extends Component {
   constructor(props) {
@@ -29,9 +30,9 @@ export default class Forklift extends Component {
       areaCleaning: ['Area Cleaning UBB', 'Area Cleaning Pabrik 1'],
       formData: {
         no_order: '',
-        pekerjaan: '',
+        pekerjaan: 'Loading/Unloading',
         kapal: '',
-        no_palka: '',
+        no_palka: '1',
         area: '',
         time_start: '',
         time_end: '',
@@ -40,9 +41,11 @@ export default class Forklift extends Component {
   }
 
   send = async () => {
+    const APIURL =  await Storage.getItem({ key: 'api-url' });
+    const FoURL = `${APIURL}/backend_laravel/public/api/forklift`;
     try {
       await fetch(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/forklift',
+        FoURL,
         {
           method: 'POST',
           headers: {
@@ -59,10 +62,10 @@ export default class Forklift extends Component {
           this.setState({
             formData: {
               no_order: '',
-              pekerjaan: '',
+              pekerjaan: 'Loading/Unloading',
               kapal: '',
-              no_palka: '',
-              area: '',
+              no_palka: '1',
+              area: 'Area Cleaning UBB',
               time_start: '',
               time_end: '',
             },

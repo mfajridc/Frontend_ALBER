@@ -13,6 +13,7 @@ import alatberat from '../../assets/components/atom/Alber/alatberat';
 import colors from '../../assets/components/atom/colors';
 import {log} from 'react-native-reanimated';
 import axios from 'axios';
+import {Storage} from 'expo-storage';
 
 export default class ProcessOrderPCS extends Component {
   constructor(props) {
@@ -32,16 +33,18 @@ export default class ProcessOrderPCS extends Component {
   }
 
   async fetchData() {
+     const APIURL =  await Storage.getItem({ key: 'api-url' });
+      const URL = `${APIURL}/backend_laravel/public/api/`;
     try {
       let response = [];
       const responseExcavator = await axios.get(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/excavator',
+        URL + 'excavator',
       );
       const responseWheelLoader = await axios.get(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/wheelLoader',
+        URL + 'wheelLoader',
       );
       const responseForklift = await axios.get(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/forklift',
+        URL + 'forklift',
       );
       // Set the 'jenis' property to 'Excavator' for each element in the 'responseExcavator.data.data' array
       const excavatorData = responseExcavator.data.data.map(element => ({

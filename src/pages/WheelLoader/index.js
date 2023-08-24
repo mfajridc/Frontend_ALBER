@@ -16,6 +16,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import {Picker} from '@react-native-picker/picker';
 import Moment from 'react-moment';
 import moment from 'moment';
+import {Storage} from 'expo-storage';
 
 export default class WheelLoader extends Component {
   constructor(props) {
@@ -26,29 +27,38 @@ export default class WheelLoader extends Component {
       areaCleaning: ['Area Cleaning UBB', 'Area Cleaning Pabrik 1'],
       formData: {
         no_order: '',
-        pekerjaan: '',
+        pekerjaan: 'Loading/Unloading',
         kapal: '',
-        no_palka: '',
+        no_palka: '1',
       },
     };
   }
 
   send = async () => {
+    const APIURL = await Storage.getItem({key: 'api-url'});
+    const wlURL = `${APIURL}/backend_laravel/public/api/wheelLoader`;
+
+    console.log(wlURL);
     try {
-      await fetch(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/wheelLoader',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(this.state.formData),
+      await fetch(wlURL, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify(this.state.formData),
+      })
         .then(response => response.json())
         .then(json => {
           alert('Order Request Success!');
+          this.setState({
+            formData: {
+              no_order: '',
+              pekerjaan: 'Loading/Unloading',
+              kapal: '',
+              no_palka: '1',
+            },
+          });
         })
         .catch(error => {
           console.error(error);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {
   SplashScreen,
@@ -18,10 +18,13 @@ import {
   ProcessOrder,
   ProcessOrderPCS,
   HistoryOrder,
+  Tracking,
+  APIchange,
 } from './src/pages';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as Font from 'expo-font'; // Import expo-font
+import {Storage} from 'expo-storage';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +40,15 @@ const App = () => {
     }
 
     loadFont();
+
+    (async () => {
+      const url = await Storage.getItem({key: `api-url`});
+      if (!url)
+        await Storage.setItem({
+          key: `api-url`,
+          value: 'https://7e90-182-1-75-16.ngrok-free.app',
+        });
+    })();
   }, []);
 
   if (!fontLoaded) {
@@ -128,6 +140,16 @@ const App = () => {
         <Stack.Screen
           name="HistoryOrder"
           component={HistoryOrder}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Tracking"
+          component={Tracking}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="APIchange"
+          component={APIchange}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

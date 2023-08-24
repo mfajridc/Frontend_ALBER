@@ -13,6 +13,8 @@ import {IGambarLogo} from '../../assets/images';
 import {BtnLogin, Input} from '../../assets/components/atom';
 import Loading from 'react-native-whc-loading';
 import {setRole, setName} from '../../User';
+import {Storage} from 'expo-storage';
+import { log } from 'react-native-reanimated';
 
 export default class Login extends Component {
   constructor(props) {
@@ -20,53 +22,59 @@ export default class Login extends Component {
     this.state = {
       name: '',
       password: '',
+      api: '',
     };
   }
 
-  login = () => {
-    var UserName = this.state.name;
-    var Password = this.state.password;
-    var InsertAPIURL =
-      'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/login';
+  login = async () => {
+    const { name, password } = this.state;
+    var apilama = await Storage.getItem({ key: 'api-url' });
+    try {
+      
+      const APIURL =  await Storage.getItem({ key: 'api-url' });
+      const loginURL = `${APIURL}/backend_laravel/public/api/login`;
 
-    var headers = {
-      'Access-Control-Allow-Origin': 'true',
-      'Content-Type': 'application/json',
-    };
+      const headers = {
+        'Content-Type': 'application/json',
+      };
 
-    var Data = {
-      name: UserName,
-      password: Password,
-    };
+      const data = {
+        name,
+        password,
+      };
 
-    fetch(InsertAPIURL, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(Data),
-    })
-      .then(response => response.json())
-      .then(response => {
-        if (response.success) {
-          var role = response.role;
-          var name = response.name;
-          setRole(role);
-          setName(name);
-          if (role === 'admin_pg') {
-            alert('Successfully Login');
-            this.props.navigation.navigate('HomeScreen');
-          } else {
-            alert('Successfully Login');
-            this.props.navigation.navigate('HomePCS');
-          }
-        } else {
-          alert('Incorrect');
-        }
+      fetch(loginURL, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(data),
       })
-      .catch(error => {
-        console.error(error);
-      });
+        .then(response => response.json())
+        .then(response => {
+          if (response.success) {
+            const { role, name } = response;
+            setRole(role);
+            setName(name);
+            if (role === 'admin_pg') {
+              alert('Successfully Login');
+              this.props.navigation.navigate('HomeScreen');
+            } else {
+              alert('Successfully Login');
+              this.props.navigation.navigate('HomePCS');
+            }
+          } else {
+            alert('Incorrect');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          alert('An error occurred');
+        });
 
-    Keyboard.dismiss();
+      Keyboard.dismiss();
+    } catch (error) {
+      console.error(error);
+      alert('An error occurred');
+    }
   };
 
   render() {
@@ -81,6 +89,7 @@ export default class Login extends Component {
           placeholder="Input Username"
           onChangeText={name => this.setState({name})}
         />
+        
         <Input
           label="Password"
           placeholder="Input Password"

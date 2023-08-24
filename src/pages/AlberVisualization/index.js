@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import {IBack, ILogoo} from '../../assets/icons';
 import axios from 'axios';
+import {Storage} from 'expo-storage';
 
 const AlberVisualization = ({navigation}) => {
   const [groupedData, setGroupedData] = useState([]);
@@ -11,15 +12,17 @@ const AlberVisualization = ({navigation}) => {
   }, []);
 
   const fetchData = async () => {
+    const APIURL =  await Storage.getItem({ key: 'api-url' });
+      const URL = `${APIURL}/backend_laravel/public/api/`;
     try {
       const responseExcavator = await axios.get(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/excavator',
+        URL + 'excavator',
       );
       const responseWheelLoader = await axios.get(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/wheelLoader',
+        URL + 'wheelLoader',
       );
       const responseForklift = await axios.get(
-        'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/forklift',
+        URL + 'forklift',
       );
 
       const excavatorData = responseExcavator.data.data.map(element => ({

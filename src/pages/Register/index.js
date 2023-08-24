@@ -18,6 +18,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Picker} from '@react-native-picker/picker';
+import {Storage} from 'expo-storage';
 
 // const role = ["admin_pg", "admin_pcs", "operator_pcs"]
 const role = ['admin_pg', 'admin_pcs', 'operator_pcs'];
@@ -37,15 +38,16 @@ export default class Register extends Component {
     };
   }
 
-  login = () => {
+  login = async () => {
     const {name, role, password} = this.state.formData;
-
+    const APIURL =  await Storage.getItem({ key: 'api-url' });
+    const registerURL = `${APIURL}/backend_laravel/public/api/register`;
     if (name === '' || password === '') {
       alert('Required Field Is Missing!');
     } else {
       axios
         .post(
-          'https://eb14-114-125-77-12.ngrok-free.app/backend_laravel/public/api/register',
+          registerURL,
           {
             name,
             role,
